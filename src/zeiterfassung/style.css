@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18.04.2018, 11:56:39
+    Author     : Alex
+*/
+.root {
+    -fx-background-image: url("car.jpg");
+    
+}
+.label {
+    -fx-text-fill: white;
+}
+#button01:hover {
+	-fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+}
+#button02:hover {
+    -fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+}
+#button03:hover {
+    -fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+}
+#button04:hover {
+	-fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+}
+#button05:hover {
+    -fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+	
+}
+#button06:hover {
+    -fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+}
+#button07:hover {
+    -fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-border-color: crimson;
+}	

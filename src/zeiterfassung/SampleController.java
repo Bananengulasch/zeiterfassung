@@ -19,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SampleController implements Initializable {
 	InvoiceDAO invDAO = new InvoiceDAODBImpl();
-	InvoiceDAOKunde invDAOKunde = new InvoiceDAODBImplKunde();
+
 	@FXML
     private Label label1;
     @FXML
@@ -122,114 +122,33 @@ public class SampleController implements Initializable {
     private int umsatz;
     
     public void initialize(URL url, ResourceBundle rb) {
+
     	
-    	//
-    	//TABELLE 01 = Autotabelle!
-    	//
+    	TableColumn mitarbeiterName = new TableColumn("MITARBEITERNAME");
+    	TableColumn taetigkeit = new TableColumn("TAETIGKEIT");
+    	TableColumn timestamp = new TableColumn("ZEITSTEMPEL");
     	
-    	choicebox01.getItems().addAll("Neuwagen", "Gebrauchtwagen");
-    	choicebox02.getItems().addAll("Automatik", "Schaltgetriebe");
+    	table01.getColumns().addAll(mitarbeiterName, taetigkeit, timestamp);
     	
-    	TableColumn marke = new TableColumn("MARKE");
-    	TableColumn modell = new TableColumn("MODELL");
-    	TableColumn aufbau = new TableColumn("AUFBAUART");
-    	TableColumn jahr = new TableColumn("BAUJAHR");
-    	TableColumn kilometer = new TableColumn("KILOMETERSTAND");
-    	TableColumn ps = new TableColumn("PS");
-    	TableColumn nwgw = new TableColumn("NEU/GEBRAUCHTWAGEN");
-    	TableColumn türen = new TableColumn("TÜREN");
-    	TableColumn farbe = new TableColumn("FARBE");
-    	TableColumn getriebe = new TableColumn("GETRIEBE");
-    	TableColumn preis = new TableColumn("PREIS");
-    	TableColumn verkauft = new TableColumn("VERKAUFT");
-    	
-    	table01.getColumns().addAll(marke, modell, aufbau, jahr, kilometer, ps, nwgw, türen, farbe, getriebe, preis, verkauft);
-    	
-    	marke.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	modell.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	aufbau.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	jahr.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	kilometer.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	ps.prefWidthProperty().bind(table01.widthProperty().multiply(0.05));
-    	nwgw.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	türen.prefWidthProperty().bind(table01.widthProperty().multiply(0.05));
-    	farbe.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	getriebe.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	preis.prefWidthProperty().bind(table01.widthProperty().multiply(0.05));
-    	verkauft.prefWidthProperty().bind(table01.widthProperty().multiply(0.05));
+    	mitarbeiterName.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
+    	taetigkeit.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
+    	timestamp.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
     	
     	ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
     	
     	
-    	marke.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Marke"));
-    	modell.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Modell"));
-    	aufbau.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Aufbau"));
-    	jahr.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Jahr"));
-    	kilometer.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Kilometer"));
-    	ps.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Ps"));
-    	nwgw.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Nwgw"));
-    	türen.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Tueren"));
-    	farbe.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Farbe"));
-    	getriebe.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Getriebe"));
-    	preis.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Preis"));
-    	verkauft.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Verkauft"));
+    	mitarbeiterName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Mitarbeitername"));
+    	taetigkeit.setCellValueFactory(new PropertyValueFactory<Invoice, String>("taetigkeit"));
+    	timestamp.setCellValueFactory(new PropertyValueFactory<Invoice, String>(""));
     	
     	table01.setItems(obslist);
-    	
-    	//
-    	//TABELLE 02 = Kundentabelle!
-    	//
-    	
-    	TableColumn vname = new TableColumn("VORNAME");
-    	TableColumn nname = new TableColumn("NACHNAME");
-    	TableColumn birthdate = new TableColumn("GEBURTSDATUM");
-    	TableColumn adress = new TableColumn("ADRESSE");
-    	TableColumn email = new TableColumn("E-MAIL");
-    	TableColumn number = new TableColumn("TELEFON");
-    	TableColumn cars = new TableColumn("ANZAHL GEKAUFTER AUTOS");
-    	TableColumn besitz = new TableColumn("AUTOS IM BESITZ");
-    	
-    	table02.getColumns().addAll(vname, nname, birthdate, adress, email, number, cars, besitz);
-    	
-    	vname.prefWidthProperty().bind(table01.widthProperty().multiply(0.15));
-    	nname.prefWidthProperty().bind(table01.widthProperty().multiply(0.15));
-    	birthdate.prefWidthProperty().bind(table01.widthProperty().multiply(0.15));
-    	adress.prefWidthProperty().bind(table01.widthProperty().multiply(0.15));
-    	email.prefWidthProperty().bind(table01.widthProperty().multiply(0.10));
-    	number.prefWidthProperty().bind(table01.widthProperty().multiply(0.10));
-    	cars.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	besitz.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	
-    	ObservableList<InvoiceKunde> obslistKunde = FXCollections.observableArrayList(invDAOKunde.getAllInvoices());
-    	
-    	
-    	vname.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, String>("vname"));
-    	nname.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, String>("nname"));
-    	birthdate.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, Date>("birthdate"));
-    	adress.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, String>("adress"));
-    	email.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, String>("email"));
-    	number.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, String>("number"));
-    	cars.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, Integer>("cars"));
-    	besitz.setCellValueFactory(new PropertyValueFactory<InvoiceKunde, String>("besitz"));
-    	
-    	table02.setItems(obslistKunde);
     	
     }
  
 	
     public void buttonAdd() {
-    	String marke = String.valueOf(textField02.getText());
-        String modell = String.valueOf(textField03.getText());
-        String aufbau  = String.valueOf(textField09.getText());
-        int jahr  = Integer.valueOf(textField04.getText());
-        int kilometer  = Integer.valueOf(textField06.getText());
-        int ps  = Integer.valueOf(textField07.getText());
-        int tueren = Integer.valueOf(textField05.getText());
-        String nwgw = choicebox01.getValue().toString();
-        String getriebe = choicebox02.getValue().toString();
-        String farbe  = String.valueOf(textField08.getText());
-        int preis  = Integer.valueOf(textField10.getText());
-        String verkauft = "NEIN";
+    	String name = String.valueOf(textName.getText());
+        String modell = String.valueOf(textTaetigkeit.getText());
 
 		 if(textField01.getLength()==0) {
            Alert alert = new Alert(AlertType.INFORMATION);

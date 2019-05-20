@@ -5,36 +5,17 @@ import java.sql.Date;
 public class Invoice {
 	
 	private int id;
-	private String marke;
-	private String modell;
-	private String aufbau;
-	private int jahr;
-	private int kilometer;
-	private int ps;
-	private int tueren;
-	private String farbe;
-	private String nwgw;
-	private String getriebe;
-	private int preis;
-	private String verkauft;
+	private String mitarbeiter_id;
+	private String projekt_id;
+	private String taetigkeit;
+	private Date timestamp;
 	
-
-	public Invoice(int id, String marke, String modell, String aufbau, int jahr, int kilometer, int ps, 
-			String nwgw, int tueren, String farbe,  String getriebe, int preis, String verkauft) {
-		super();
+	public Invoice(int id, String mitarbeiter_id, String projekt_id, String taetigkeit, Date timestamp) {
 		this.id = id;
-		this.marke = marke;
-		this.modell = modell;
-		this.aufbau = aufbau;
-		this.jahr = jahr;
-		this.kilometer = kilometer;
-		this.ps = ps;
-		this.tueren = tueren;
-		this.farbe = farbe;
-		this.nwgw = nwgw;
-		this.getriebe = getriebe;
-		this.preis = preis;
-		this.verkauft = verkauft;
+		this.mitarbeiter_id = mitarbeiter_id;
+		this.projekt_id = projekt_id;
+		this.taetigkeit = taetigkeit;
+		this.timestamp = timestamp;
 	}
 
 	public int getId() {
@@ -45,116 +26,40 @@ public class Invoice {
 		this.id = id;
 	}
 
-	public String getMarke() {
-		return marke;
+	public String getMitarbeiter_id() {
+		return mitarbeiter_id;
 	}
 
-	public void setMarke(String marke) {
-		this.marke = marke;
+	public void setMitarbeiter_id(String mitarbeiter_id) {
+		this.mitarbeiter_id = mitarbeiter_id;
 	}
 
-	public String getModell() {
-		return modell;
+	public String getProjekt_id() {
+		return projekt_id;
 	}
 
-	public void setModell(String modell) {
-		this.modell = modell;
+	public void setProjekt_id(String projekt_id) {
+		this.projekt_id = projekt_id;
 	}
 
-	public String getAufbau() {
-		return aufbau;
+	public String getTaetigkeit() {
+		return taetigkeit;
 	}
 
-	public void setAufbau(String aufbau) {
-		this.aufbau = aufbau;
+	public void setTaetigkeit(String taetigkeit) {
+		this.taetigkeit = taetigkeit;
 	}
 
-	public int getJahr() {
-		return jahr;
+	public Date getTimestamp() {
+		return timestamp;
 	}
 
-	public void setJahr(int jahr) {
-		this.jahr = jahr;
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
-
-	public int getKilometer() {
-		return kilometer;
-	}
-
-	public String getFarbe() {
-		return farbe;
-	}
-
-	public void setFarbe(String farbe) {
-		this.farbe = farbe;
-	}
-
-	public String getNwgw() {
-		return nwgw;
-	}
-	
-	public void setNwgw(String nwgw) {
-		this.nwgw = nwgw;
-	}
-
-	public String getGetriebe() {
-		return getriebe;
-	}
-	
-	public void setGetriebe(String getriebe) {
-		this.getriebe = getriebe;
-	}
-	
-	public void setKilometer(int kilometer) {
-		this.kilometer = kilometer;
-	}
-
-	public int getPs() {
-		return ps;
-	}
-
-	public void setPs(int ps) {
-		this.ps = ps;
-	}
-
-	public int getTueren() {
-		return tueren;
-	}
-
-	public void setTueren(int tueren) {
-		this.tueren = tueren;
-	}
-
 	
 
 	
-
-	public String getVerkauft() {
-		return verkauft;
-	}
-
-	public void setVerkauft(String verkauft) {
-		this.verkauft = verkauft;
-	}
-
-	public int getPreis() {
-		return preis;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "Invoice [id=" + id + ", marke=" + marke + ", modell=" + modell + ", aufbau=" + aufbau + ", jahr=" + jahr
-				+ ", kilometer=" + kilometer + ", ps=" + ps + ", tueren=" + tueren + ", farbe=" + farbe + ", nwgw="
-				+ nwgw + ", getriebe=" + getriebe + ", preis=" + preis + "]";
-	}
-
-
-	
-
-	public void setPreis(int preis) {
-		this.preis = preis;
-	}
 
 	
 	

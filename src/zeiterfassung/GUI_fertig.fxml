@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.collections.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.000022070315" prefWidth="875.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.000022070315" prefWidth="875.0000999999975" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <TabPane layoutX="0.0" layoutY="0.0" prefHeight="708.0" prefWidth="872.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -90,6 +88,7 @@
                 <Button layoutX="422.0" layoutY="291.0" mnemonicParsing="false" text="TÄTIGKEIT ANLEGEN" />
                 <Button layoutX="781.0" layoutY="291.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="51.0" startX="-134.0" startY="-2.0" />
+                        <DatePicker layoutX="504.0" layoutY="101.0" />
               </children>
             </AnchorPane>
           </content>

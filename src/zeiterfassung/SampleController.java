@@ -124,20 +124,22 @@ public class SampleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     	
-    	TableColumn mitarbeiterName = new TableColumn("MITARBEITERNAME");
+    	TableColumn mitarbeiterVName = new TableColumn("MITARBEITERVORNAME");
+    	TableColumn mitarbeiterNName = new TableColumn("MITARBEITERNACHNAME");
     	TableColumn taetigkeit = new TableColumn("TAETIGKEIT");
     	TableColumn timestamp = new TableColumn("ZEITSTEMPEL");
     	
-    	table01.getColumns().addAll(mitarbeiterName, taetigkeit, timestamp);
+    	table01.getColumns().addAll(mitarbeiterVName, mitarbeiterNName, taetigkeit, timestamp);
     	
-    	mitarbeiterName.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
+    	mitarbeiterVName.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
     	taetigkeit.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
     	timestamp.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
     	
     	ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
     	
     	
-    	mitarbeiterName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Mitarbeitername"));
+    	mitarbeiterVName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Mitarbeitervorname"));
+    	mitarbeiterNName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Mitarbeitername"));
     	taetigkeit.setCellValueFactory(new PropertyValueFactory<Invoice, String>("taetigkeit"));
     	timestamp.setCellValueFactory(new PropertyValueFactory<Invoice, String>(""));
     	
@@ -146,9 +148,9 @@ public class SampleController implements Initializable {
     }
  
 	
-    public void buttonAdd() {
-    	String name = String.valueOf(textName.getText());
-        String modell = String.valueOf(textTaetigkeit.getText());
+    public void buttonAddMitarbeiter() {
+    	String mitarbeiter_vn = String.valueOf(textName.getText());
+        String mitarbeiter_nn = String.valueOf(textTaetigkeit.getText());
 
 		 if(textField01.getLength()==0) {
            Alert alert = new Alert(AlertType.INFORMATION);
@@ -157,10 +159,10 @@ public class SampleController implements Initializable {
            String s ="Eintrag wurde erfolgreich gespeichert";
            alert.setContentText(s);
            alert.show();
-   		invDAO.addInvoice(marke, modell, aufbau, jahr, kilometer, ps,  nwgw, tueren, farbe, getriebe, preis, verkauft );	
+   		invDAO.addInvoice(mitarbeiter_vn, mitarbeiter_nn);	
        }else {
            int id = Integer.valueOf(textField01.getText());
-       	invDAO.updateInvoice(id, marke, modell, aufbau, jahr, kilometer, ps,  nwgw, tueren, farbe, getriebe, preis, verkauft);
+       	invDAO.updateInvoice(mitarbeiter_id, mitarbeiter_vn, mitarbeiter_nn);
        }
 		 ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
 		 table01.setItems(obslist);

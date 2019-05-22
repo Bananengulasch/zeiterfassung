@@ -6,6 +6,6 @@ import java.util.List;
 public interface InvoiceDAO {
 
 	public List<Invoice> getAllInvoices();
-	public void addInvoice(String mitarbeiter_id, String projekt_id, String taetigkeit, Date timestamp);
-	public void updateInvoice(int id, String mitarbeiter_id, String projekt_id, String taetigkeit, Date timestamp);
+	public void addInvoice(int mitarbeiter_mitarbeiter_id, int projekt_projekt_id, String projektposition_bezeichnung, Date projektposition_datum, String projektposition_dauer);
+	public void updateInvoice(int projektposition_id, int mitarbeiter_mitarbeiter_id, int projekt_projekt_id, String projektposition_bezeichnung, Date projektposition_datum, String projektposition_dauer);
 }

@@ -13,11 +13,11 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/zeiterfassung", "root" , "");
 	}
 	
-	public void addInvoice(String mitarbeiter_id, String projekt_id, String taetigkeit, Date timestamp) {
+	public void addInvoice(int mitarbeiter_mitarbeiter_id, int projekt_projekt_id, String projektposition_bezeichnung, Date projektposition_datum, String projektposition_dauer) {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "INSERT INTO projektposition ( mitarbeiter_mitarbeiter_id, projekt_projekt_id, projektposition_taetigkeit, projektposition_timestamp) VALUES (?,?,?,?)";
+		String statement = "INSERT INTO projektposition ( mitarbeiter_mitarbeiter_id, projekt_projekt_id, projektposition_id, projektposition_bezeichnung, projektposition_dauer, projektposition_datum) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			// 1. Get a connection to database
@@ -164,5 +164,19 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			}
 		}
 		return rechnungen;
+	}
+
+	@Override
+	public void updateInvoice(int id, String mitarbeiter_id, String projekt_id, String taetigkeit_id, String taetigkeit,
+			Date datum, String dauer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateInvoice(int projektposition_id, int mitarbeiter_mitarbeiter_id, int projekt_projekt_id,
+			String projektposition_bezeichnung, Date projektposition_datum, String projektposition_dauer) {
+		// TODO Auto-generated method stub
+		
 	}
 }

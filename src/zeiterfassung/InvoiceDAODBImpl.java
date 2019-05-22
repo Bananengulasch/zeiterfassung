@@ -17,7 +17,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "INSERT INTO projektposition ( mitarbeiter_mitarbeiter_id, projekt_projekt_id, projektposition_id, projektposition_bezeichnung, projektposition_dauer, projektposition_datum) VALUES (?,?,?,?,?,?)";
+		String statement = "INSERT INTO projektposition ( mitarbeiter_mitarbeiter_id, projekt_projekt_id, projektposition_bezeichnung, projektposition_datum, projektposition_dauer) VALUES (?,?,?,?,?)";
 		
 		try {
 			// 1. Get a connection to database
@@ -25,10 +25,11 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
-			myStmt.setString(1, mitarbeiter_id );
-			myStmt.setString(2, projekt_id);
-			myStmt.setString(3, taetigkeit);
-			myStmt.setDate(3, timestamp);
+			myStmt.setInt(1, mitarbeiter_mitarbeiter_id );
+			myStmt.setInt(2, projekt_projekt_id);
+			myStmt.setString(3, projektposition_bezeichnung);
+			myStmt.setDate(4, projektposition_datum);
+			myStmt.setString(5, projektposition_dauer);
 			myStmt.execute();
 		}
 		catch (Exception exc) {
@@ -65,11 +66,11 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		
 	}
 
-	public void updateInvoice(int id, String mitarbeiter_id, String projekt_id, String taetigkeit, Date timestamp) {
+	public void updateInvoice(int id, int mitarbeiter_id, int projekt_id, String taetigkeit, Date timestamp ,String projektposition_dauer) {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "UPDATE `projektposition` SET `mitarbeiter_mitarbeiter_id`=?,`projekt_projekt_id`=?,`projektposition_taetigkeit`=?,`projektposition_dauer`=?,`projektposition_timestamp`=? WHERE id=?";
+		String statement = "UPDATE `projektposition` SET `mitarbeiter_mitarbeiter_id`=?,`projekt_projekt_id`=?,`projektposition_taetigkeit`=?,`projektposition_dauer`=?,`projektposition_timestamp`=?,`projektposition_dauer`=? WHERE id=?";
 		
 		try {
 			// 1. Get a connection to database
@@ -77,11 +78,12 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
-			myStmt.setString(1, mitarbeiter_id);
-			myStmt.setString(2, projekt_id);
+			myStmt.setInt(1, mitarbeiter_id);
+			myStmt.setInt(2, projekt_id);
 			myStmt.setString(3, taetigkeit);
 			myStmt.setDate(4, timestamp);
-			myStmt.setInt(5, id);
+			myStmt.setString(5, projektposition_dauer);
+			myStmt.setInt(6, id);
 			myStmt.execute();
 		}
 		catch (Exception exc) {
@@ -118,7 +120,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 	}
 	
 	public List<Invoice> getAllInvoices(){
-		ArrayList<Invoice> rechnungen = new ArrayList<>();
+		ArrayList<Invoice> projekte_mitarbeiter = new ArrayList<>();
 		try {
 			// 1. Get a connection to database
 			myConn = connect();
@@ -131,8 +133,8 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			
 			// 4. Process the result set
 			while (myRs.next()) {
-				Invoice invoice = new Invoice(myRs.getInt("id"),  myRs.getString("mitarbeiter_id"), myRs.getString("projekt_id"), myRs.getString("taetigkeit"), myRs.getDate("timestamp"));
-				rechnungen.add(invoice);
+				Invoice invoice = new Invoice(myRs.getInt("id"),  myRs.getString("mitarbeiter_id"), myRs.getString("projekt_id"), myRs.getString("taetigkeit"), myRs.getDate("timestamp"), myRs.getString("dauer"));
+				projekte_mitarbeiter.add(invoice);
 			}
 		}
 		catch (Exception exc) {
@@ -163,20 +165,308 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 				}
 			}
 		}
-		return rechnungen;
+		return projekte_mitarbeiter;
 	}
+	
 
-	@Override
-	public void updateInvoice(int id, String mitarbeiter_id, String projekt_id, String taetigkeit_id, String taetigkeit,
-			Date datum, String dauer) {
-		// TODO Auto-generated method stub
+	public void addMitarbeiter(String mitarbeiter_vn, String mitarbeiter_nn) {
+		PreparedStatement myStmt = null;
+		Connection myConn = null;
+		ResultSet myRs = null;
+		String statement = "INSERT INTO mitarbeiter (mitarbeiter_vn, mitarbeiter_nn ) VALUES (?,?)";
+		
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.prepareStatement(statement);
+			myStmt.setString(1, mitarbeiter_vn);
+			myStmt.setString(2, mitarbeiter_nn);
+			myStmt.execute();
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 	}
+	
 
-	@Override
-	public void updateInvoice(int projektposition_id, int mitarbeiter_mitarbeiter_id, int projekt_projekt_id,
-			String projektposition_bezeichnung, Date projektposition_datum, String projektposition_dauer) {
-		// TODO Auto-generated method stub
+	public void updateMitarbeiter(int mitarbeiter_id, String mitarbeiter_vn, String mitarbeiter_nn) {
+		PreparedStatement myStmt = null;
+		Connection myConn = null;
+		ResultSet myRs = null;
+		String statement = "UPDATE `mitarbeiter` SET `mitarbeiter_vn`=?,`mitarbeiter_nn`=? WHERE id=?";
+		
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.prepareStatement(statement);
+			myStmt.setString(1, mitarbeiter_vn);
+			myStmt.setString(2, mitarbeiter_nn);
+			myStmt.setInt(3, mitarbeiter_id);
+			myStmt.execute();
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 	}
+	
+	public List<Mitarbeiter> getAllMitarbeiter(){
+		ArrayList<Mitarbeiter> mitarbeiterliste = new ArrayList<>();
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.createStatement();
+			
+			// 3. Execute SQL query
+			myRs = myStmt.executeQuery("select * from mitarbeiter");
+			
+			// 4. Process the result set
+			while (myRs.next()) {
+				Mitarbeiter mitarbeiter = new Mitarbeiter(myRs.getInt("mitarbeiter_id"),  myRs.getString("mitarbeiter_vn"), myRs.getString("mitarbeiter_nn"));
+				mitarbeiterliste.add(mitarbeiter);
+			}
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return mitarbeiterliste;
+	}
+	
+	public void addProjekt(String projekt_bezeichnung) {
+		PreparedStatement myStmt = null;
+		Connection myConn = null;
+		ResultSet myRs = null;
+		String statement = "INSERT INTO projekt (projekt_bezeichnung) VALUES (?)";
+		
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.prepareStatement(statement);
+			myStmt.setString(1, projekt_bezeichnung);
+			myStmt.execute();
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+
+	public void updateProjekt(int projekt_id, String projekt_bezeichnung) {
+		PreparedStatement myStmt = null;
+		Connection myConn = null;
+		ResultSet myRs = null;
+		String statement = "UPDATE `projekt` SET `projekt_bezeichnung`=? WHERE id=?";
+		
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.prepareStatement(statement);
+			myStmt.setString(1, projekt_bezeichnung);
+			myStmt.setInt(2, projekt_id);
+			myStmt.execute();
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	public List<Projekt> getAllProjekte(){
+		ArrayList<Projekt> projektliste = new ArrayList<>();
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.createStatement();
+			
+			// 3. Execute SQL query
+			myRs = myStmt.executeQuery("select * from projekt");
+			
+			// 4. Process the result set
+			while (myRs.next()) {
+				Projekt projekt = new Projekt(myRs.getInt("projekt_id"),  myRs.getString("projekt_bezeichnung"));
+				projektliste.add(projekt);
+			}
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return projektliste;
+	}
+	
 }

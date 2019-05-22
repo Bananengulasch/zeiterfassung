@@ -12,7 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Pane root = (Pane)FXMLLoader.load(getClass().getResource("/application/GUI.fxml"));
+			Pane root = (Pane)FXMLLoader.load(getClass().getResource("/zeiterfassung/GUI_fertig.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 			primaryStage.setScene(scene);

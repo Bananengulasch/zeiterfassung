@@ -59,11 +59,11 @@ public class SampleController implements Initializable {
     @FXML
     private Label label19;
     @FXML
-    private Button button01;
+    private Button buttonMitarbeiter_add;
     @FXML
-    private Button button02;
+    private Button buttonMitarbeiter_delete;
     @FXML
-    private Button button03;
+    private Button buttonMitarbeiter_clear;
     @FXML
     private Button button04;
     @FXML
@@ -73,11 +73,11 @@ public class SampleController implements Initializable {
     @FXML
     private Button button07;
     @FXML
-    private TextField textField01;
+    private TextField textMitarbeiter_vn;
     @FXML
-    private TextField textField02;
+    private TextField textMitarbeiter_nn;
     @FXML
-    private TextField textField03;
+    private TextField textMitarbeiter_id;
     @FXML
     private TextField textField04;
     @FXML
@@ -111,9 +111,11 @@ public class SampleController implements Initializable {
     @FXML
     private DatePicker datepicker01;
     @FXML
-    private TableView table01;
+    private TableView tableMitarbeiter;
     @FXML
-    private TableView table02;
+    private TableView tableProjektMitarbeiter;
+    @FXML
+    private TableView tableProjekt;
     @FXML
     private ChoiceBox choicebox01;
     @FXML
@@ -129,11 +131,11 @@ public class SampleController implements Initializable {
     	TableColumn taetigkeit = new TableColumn("TAETIGKEIT");
     	TableColumn timestamp = new TableColumn("ZEITSTEMPEL");
     	
-    	table01.getColumns().addAll(mitarbeiterVName, mitarbeiterNName, taetigkeit, timestamp);
+    	tableProjektMitarbeiter.getColumns().addAll(mitarbeiterVName, mitarbeiterNName, taetigkeit, timestamp);
     	
-    	mitarbeiterVName.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	taetigkeit.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
-    	timestamp.prefWidthProperty().bind(table01.widthProperty().multiply(0.1));
+    	mitarbeiterVName.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.3));
+    	taetigkeit.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.3));
+    	timestamp.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.3));
     	
     	ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
     	
@@ -143,29 +145,42 @@ public class SampleController implements Initializable {
     	taetigkeit.setCellValueFactory(new PropertyValueFactory<Invoice, String>("taetigkeit"));
     	timestamp.setCellValueFactory(new PropertyValueFactory<Invoice, String>(""));
     	
-    	table01.setItems(obslist);
+    	tableProjektMitarbeiter.setItems(obslist);
+    	
+    	TableColumn mitarbeiter_id = new TableColumn("MITARBEITER_ID");
+    	
+    	tableMitarbeiter.getColumns().addAll(mitarbeiter_id, mitarbeiterVName, mitarbeiterNName);
+    	
+    	
+    	mitarbeiter_id.prefWidthProperty().bind(tableMitarbeiter.widthProperty().multiply(0.1));
+    	
+    	ObservableList<Invoice> obslistMitarbeiter = FXCollections.observableArrayList(invDAO.getAllInvoices());
+    	
+    	mitarbeiter_id.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>(""));
+    	
+    	tableProjektMitarbeiter.setItems(obslistMitarbeiter);
     	
     }
  
 	
     public void buttonAddMitarbeiter() {
-    	String mitarbeiter_vn = String.valueOf(textName.getText());
-        String mitarbeiter_nn = String.valueOf(textTaetigkeit.getText());
+    	String mitarbeiter_vn = String.valueOf(textMitarbeiter_vn.getText());
+        String mitarbeiter_nn = String.valueOf(textMitarbeiter_nn.getText());
 
-		 if(textField01.getLength()==0) {
+		 if(textMitarbeiter_id.getLength()==0) {
            Alert alert = new Alert(AlertType.INFORMATION);
            alert.setTitle("Information");
            alert.setHeaderText("Bestätigung");
            String s ="Eintrag wurde erfolgreich gespeichert";
            alert.setContentText(s);
            alert.show();
-   		invDAO.addInvoice(mitarbeiter_vn, mitarbeiter_nn);	
+   		invDAO.addMitarbeiter(mitarbeiter_vn, mitarbeiter_nn);	
        }else {
-           int id = Integer.valueOf(textField01.getText());
-       	invDAO.updateInvoice(mitarbeiter_id, mitarbeiter_vn, mitarbeiter_nn);
+           int mitarbeiter_id = Integer.valueOf(textMitarbeiter_id.getText());
+       	invDAO.updateMitarbeiter(mitarbeiter_id, mitarbeiter_vn, mitarbeiter_nn);
        }
 		 ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
-		 table01.setItems(obslist);
+		 tableProjektMitarbeiter.setItems(obslist);
 	}
     
     
@@ -175,20 +190,11 @@ public class SampleController implements Initializable {
     
     public void buttonClear() {
     	
-    	textField01.setText("");
-    	textField02.setText("");
-    	textField03.setText("");
-    	textField04.setText("");
-    	textField05.setText("");
-    	textField06.setText("");
-    	textField07.setText("");
-    	textField08.setText("");
-    	textField09.setText("");
-    	textField10.setText("");
+    	
 
     }
     
-    public void buttonDelete() {
+    public void buttonMitarbeiterDelete() {
     	
 	    
 	    Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -197,101 +203,101 @@ public class SampleController implements Initializable {
 		alert.setContentText(s);
 		Optional<ButtonType> result = alert.showAndWait();
 		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-			Invoice selectedItem2 = (Invoice) table01.getSelectionModel().getSelectedItem();
-			invDAO.deleteInvoice(selectedItem2.getId());
-		    table01.getItems().remove(selectedItem2);
+			Invoice selectedItem2 = (Invoice) tableProjektMitarbeiter.getSelectionModel().getSelectedItem();
+//			invDAO.deleteInvoice(selectedItem2.getId());
+//		    table01.getItems().remove(selectedItem2);
 		}
     }
-    
-    public void buttonAddKunde() {
-    	String vname = String.valueOf(textField12.getText());
-        String nname = String.valueOf(textField13.getText());
-        Date birthdate  = Date.valueOf(datepicker01.getValue());
-        String adress  = String.valueOf(textField14.getText());
-        String email  = String.valueOf(textField15.getText());
-        String number  = String.valueOf(textField16.getText());
-        int cars = Integer.valueOf(textField17.getText());
-        String besitz = "/";
-
-		 if(textField01.getLength()==0) {
-           Alert alert = new Alert(AlertType.INFORMATION);
-           alert.setTitle("Information");
-           alert.setHeaderText("Bestätigung");
-           String s ="Eintrag wurde erfolgreich gespeichert";
-           alert.setContentText(s);
-           alert.show();
-   		invDAOKunde.addInvoice(vname, nname, birthdate, adress, email, number, cars, besitz);	
-       }else {
-           int id = Integer.valueOf(textField01.getText());
-       	invDAOKunde.updateInvoice(id, vname, nname, birthdate, adress, email, number, cars, besitz);
-       }
-		 ObservableList<Invoice> obslistKunde = FXCollections.observableArrayList(invDAO.getAllInvoices());
-		 table02.setItems(obslistKunde);
-	}
-    
-    public void buttonClearKunde() {
-    	
-    	textField11.setText("");
-    	textField12.setText("");
-    	textField13.setText("");
-    	textField14.setText("");
-    	textField15.setText("");
-    	textField16.setText("");
-    	textField17.setText("");
-    	datepicker01.setValue(LOCAL_DATE("2016-05-01"));
-
-    }
-    
-public void buttonDeleteKunde() {
-    	
-	    
-	    Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Information");
-		String s = "Bitte bestätigen Sie das Löschen";
-		alert.setContentText(s);
-		Optional<ButtonType> result = alert.showAndWait();
-		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-			InvoiceKunde selectedItem2 = (InvoiceKunde) table02.getSelectionModel().getSelectedItem();
-			invDAOKunde.deleteInvoice(selectedItem2.getId());
-		    table02.getItems().remove(selectedItem2);
-		}
-    }
-
-public void buttonBuy() {
-	
-	Invoice selectedItem1 = (Invoice) table01.getSelectionModel().getSelectedItem();
-	if(selectedItem1.getVerkauft().equals("NEIN")) {
-		InvoiceKunde selectedItem2 = (InvoiceKunde) table02.getSelectionModel().getSelectedItem();
-		int cars = selectedItem2.getCars();
-		cars++;
-		
-		String besitz = selectedItem2.getBesitz();
-		invDAOKunde.updateInvoice(selectedItem2.getId(), selectedItem2.getVname(), selectedItem2.getNname(), selectedItem2.getBirthdate(), selectedItem2.getAdress(), selectedItem2.getEmail(), selectedItem2.getNumber(), cars, besitz + " | " + selectedItem1.getId());
-		invDAO.updateInvoice(selectedItem1.getId(), selectedItem1.getMarke(), selectedItem1.getModell(), selectedItem1.getAufbau(), selectedItem1.getJahr(), selectedItem1.getKilometer(), selectedItem1.getPs(), selectedItem1.getNwgw(), selectedItem1.getTueren(), selectedItem1.getFarbe(), selectedItem1.getGetriebe(), selectedItem1.getPreis(), "JA");
-		selectedItem2.setCars(cars);
-		selectedItem1.setVerkauft("JA");
-		umsatz = umsatz + selectedItem1.getPreis();
-		textField18.setText(String.valueOf(umsatz) + " " + "Euro");
-		
-		table02.refresh();
-		table01.refresh();
-	} else {
-		
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("ACHTUNG");
-		String s = "Dieses Fahrzeug wurde bereits verkauft!";
-		alert.setContentText(s);
-		Optional<ButtonType> result = alert.showAndWait();
-		table02.refresh();
-	}
-	
 }
-    public static final LocalDate LOCAL_DATE (String dateString){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
-    }
-}
+//    public void buttonAddProjekt() {
+//    	String vname = String.valueOf(textField12.getText());
+//        String nname = String.valueOf(textField13.getText());
+//        Date birthdate  = Date.valueOf(datepicker01.getValue());
+//        String adress  = String.valueOf(textField14.getText());
+//        String email  = String.valueOf(textField15.getText());
+//        String number  = String.valueOf(textField16.getText());
+//        int cars = Integer.valueOf(textField17.getText());
+//        String besitz = "/";
+//
+//		 if(textField01.getLength()==0) {
+//           Alert alert = new Alert(AlertType.INFORMATION);
+//           alert.setTitle("Information");
+//           alert.setHeaderText("Bestätigung");
+//           String s ="Eintrag wurde erfolgreich gespeichert";
+//           alert.setContentText(s);
+//           alert.show();
+//   		invDAOKunde.addInvoice(vname, nname, birthdate, adress, email, number, cars, besitz);	
+//       }else {
+//           int id = Integer.valueOf(textField01.getText());
+//       	invDAOKunde.updateInvoice(id, vname, nname, birthdate, adress, email, number, cars, besitz);
+//       }
+//		 ObservableList<Invoice> obslistKunde = FXCollections.observableArrayList(invDAO.getAllInvoices());
+//		 table02.setItems(obslistKunde);
+//	}
+//    
+//    public void buttonClearKunde() {
+//    	
+//    	textField11.setText("");
+//    	textField12.setText("");
+//    	textField13.setText("");
+//    	textField14.setText("");
+//    	textField15.setText("");
+//    	textField16.setText("");
+//    	textField17.setText("");
+//    	datepicker01.setValue(LOCAL_DATE("2016-05-01"));
+//
+//    }
+//    
+//public void buttonDeleteKunde() {
+//    	
+//	    
+//	    Alert alert = new Alert(AlertType.CONFIRMATION);
+//		alert.setTitle("Information");
+//		String s = "Bitte bestätigen Sie das Löschen";
+//		alert.setContentText(s);
+//		Optional<ButtonType> result = alert.showAndWait();
+//		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+//			InvoiceKunde selectedItem2 = (InvoiceKunde) table02.getSelectionModel().getSelectedItem();
+//			invDAOKunde.deleteInvoice(selectedItem2.getId());
+//		    table02.getItems().remove(selectedItem2);
+//		}
+//    }
+//
+//public void buttonBuy() {
+//	
+//	Invoice selectedItem1 = (Invoice) table01.getSelectionModel().getSelectedItem();
+//	if(selectedItem1.getVerkauft().equals("NEIN")) {
+//		InvoiceKunde selectedItem2 = (InvoiceKunde) table02.getSelectionModel().getSelectedItem();
+//		int cars = selectedItem2.getCars();
+//		cars++;
+//		
+//		String besitz = selectedItem2.getBesitz();
+//		invDAOKunde.updateInvoice(selectedItem2.getId(), selectedItem2.getVname(), selectedItem2.getNname(), selectedItem2.getBirthdate(), selectedItem2.getAdress(), selectedItem2.getEmail(), selectedItem2.getNumber(), cars, besitz + " | " + selectedItem1.getId());
+//		invDAO.updateInvoice(selectedItem1.getId(), selectedItem1.getMarke(), selectedItem1.getModell(), selectedItem1.getAufbau(), selectedItem1.getJahr(), selectedItem1.getKilometer(), selectedItem1.getPs(), selectedItem1.getNwgw(), selectedItem1.getTueren(), selectedItem1.getFarbe(), selectedItem1.getGetriebe(), selectedItem1.getPreis(), "JA");
+//		selectedItem2.setCars(cars);
+//		selectedItem1.setVerkauft("JA");
+//		umsatz = umsatz + selectedItem1.getPreis();
+//		textField18.setText(String.valueOf(umsatz) + " " + "Euro");
+//		
+//		table02.refresh();
+//		table01.refresh();
+//	} else {
+//		
+//		Alert alert = new Alert(AlertType.WARNING);
+//		alert.setTitle("ACHTUNG");
+//		String s = "Dieses Fahrzeug wurde bereits verkauft!";
+//		alert.setContentText(s);
+//		Optional<ButtonType> result = alert.showAndWait();
+//		table02.refresh();
+//	}
+//	
+//}
+//    public static final LocalDate LOCAL_DATE (String dateString){
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        LocalDate localDate = LocalDate.parse(dateString, formatter);
+//        return localDate;
+////    }
+//}
 
 
 

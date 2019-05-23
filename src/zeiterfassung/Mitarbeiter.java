@@ -7,7 +7,7 @@ public class Mitarbeiter {
 	private String mitarbeiter_nn;
 	
 	public Mitarbeiter(int mitarbeiter_id, String mitarbeiter_vn, String mitarbeiter_nn) {
-
+		this.mitarbeiter_id = mitarbeiter_id;
 		this.mitarbeiter_vn = mitarbeiter_vn;
 		this.mitarbeiter_nn = mitarbeiter_nn;
 	}
@@ -34,6 +34,11 @@ public class Mitarbeiter {
 
 	public void setMitarbeiter_id(int mitarbeiter_id) {
 		this.mitarbeiter_id = mitarbeiter_id;
+	}
+
+	@Override
+	public String toString() {
+		return mitarbeiter_nn;
 	}
 
 	

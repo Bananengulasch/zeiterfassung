@@ -15,7 +15,7 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="667.0" prefWidth="889.0001220703125">
               <children>
-                <TableView layoutX="166.0" layoutY="375.0" prefHeight="278.0" prefWidth="540.0" />
+                <TableView fx:id="tableMitarbeiter" layoutX="166.0" layoutY="375.0" prefHeight="278.0" prefWidth="540.0" />
                 <Separator layoutX="15.0" layoutY="366.0" prefWidth="847.0001220703125" />
                 <Label layoutX="304.0" prefWidth="267.4998779296875" text="MITARBEITER ANLEGEN">
                   <font>
@@ -48,7 +48,7 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView layoutX="36.0" layoutY="350.0" prefHeight="302.0" prefWidth="787.0">
+                <TableView fx:id="tableProjektMitarbeiter" layoutX="36.0" layoutY="350.0" prefHeight="302.0" prefWidth="787.0">
                   <columns>
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="157.0" text="ID" />
                     <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="143.0" text="Mitarbeiter ID" />
@@ -60,14 +60,14 @@
                 </TableView>
                 <Separator layoutX="12.0" layoutY="329.0" prefWidth="847.0001220703125" />
                 <Label font="$x2" layoutX="322.0" layoutY="14.0" text="TÄTIGKEIT ANLEGEN" />
-                <Label font="$x1" layoutX="36.0" layoutY="101.0" text="Mitarbeiter ID:" />
-                <Label font="$x1" layoutX="36.0" layoutY="159.0" text="Projekt ID:" />
+                <Label font="$x1" layoutX="36.0" layoutY="101.0" text="Mitarbeitername:" />
+                <Label font="$x1" layoutX="36.0" layoutY="159.0" text="Projektname:" />
                 <Label font="$x1" layoutX="36.0" layoutY="216.0" text="Tätigkeit:" />
                 <TextArea layoutX="173.0" layoutY="216.0" prefHeight="102.0" prefWidth="207.0" promptText="Bitte Tätigkeit eingeben" wrapText="true" />
                 <Label font="$x1" layoutX="422.0" layoutY="101.0" text="Datum:" />
                 <Label font="$x1" layoutX="422.0" layoutY="159.0" text="Dauer:" />
                 <TextField layoutX="500.0" layoutY="152.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
-                <ChoiceBox layoutX="173.0" layoutY="102.0">
+                <ChoiceBox fx:id="choiceMitarbeiter" layoutX="230.0" layoutY="102.0" prefHeight="31.0" prefWidth="145.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Item 1" />
@@ -76,7 +76,7 @@
                     </FXCollections>
                   </items>
                 </ChoiceBox>
-                <ChoiceBox layoutX="173.0" layoutY="154.0">
+                <ChoiceBox fx:id="choiceProjekt" layoutX="227.0" layoutY="154.0" prefHeight="31.0" prefWidth="149.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Item 1" />
@@ -94,23 +94,21 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Projekt">
+        <Tab fx:id="ta" text="Projekt">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <Label font="$x2" layoutX="330.0" layoutY="14.0" text="PROJEKT ANLEGEN" />
-                <TableView layoutX="167.0" layoutY="351.0" prefHeight="302.0" prefWidth="540.0">
-                  <columns>
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="256.0" text="ID" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="282.0" text="Bezeichung" />
-                  </columns>
-                </TableView>
-                <Separator layoutX="12.0" layoutY="334.0" prefWidth="847.0001220703125" />
-                <Label font="$x1" layoutX="344.0" layoutY="116.0" text="Projekt Bezeichnung:" />
-                <TextField layoutX="297.0" layoutY="143.0" prefHeight="41.0" prefWidth="279.0" promptText="Bitte Bezcihnung des Projektes eingeben" />
-                <Button layoutX="360.0" layoutY="215.0" mnemonicParsing="false" text="PROJEKT ANLEGEN" />
-                <Button layoutX="402.0" layoutY="261.0" mnemonicParsing="false" text="CLEAR" />
+                <TableView fx:id="tableProjekt" layoutX="167.0" layoutY="383.0" prefHeight="270.0" prefWidth="540.0" />
+                <Separator layoutX="10.0" layoutY="364.0" prefHeight="0.0" prefWidth="848.0" />
+                <Label font="$x1" layoutX="345.0" layoutY="156.0" text="Projekt Bezeichnung:" />
+                <TextField fx:id="textProjekt_bezeichnung" layoutX="295.0" layoutY="194.0" prefHeight="41.0" prefWidth="279.0" promptText="Bitte Bezcihnung des Projektes eingeben" />
+                <Button fx:id="buttonProjekt_add" layoutX="360.0" layoutY="248.0" mnemonicParsing="false" onAction="#buttonAddProjekt" text="PROJEKT ANLEGEN" />
+                <Button fx:id="buttonProjekt_clear" layoutX="402.0" layoutY="327.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="50.0" startX="-134.0" startY="-2.0" />
+                        <Button fx:id="buttonProjekt_delete" layoutX="360.0" layoutY="289.0" mnemonicParsing="false" text="PROJEKT LÖSCHEN" />
+                        <TextField fx:id="textProjekt_id" layoutX="298.0" layoutY="107.0" prefHeight="41.0" prefWidth="279.0" promptText="Bitte Bezcihnung des Projektes eingeben" />
+                        <Label font="$x1" layoutX="390.0" layoutY="67.0" text="Projekt ID" />
               </children>
             </AnchorPane>
           </content>

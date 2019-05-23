@@ -18,12 +18,18 @@ public class Projekt {
 		this.projekt_bezeichnung = projekt_bezeichnung;
 	}
 
-	public int getId() {
+
+	public int getProjekt_id() {
 		return projekt_id;
 	}
 
-	public void setId(int id) {
-		this.projekt_id = id;
+	public void setProjekt_id(int projekt_id) {
+		this.projekt_id = projekt_id;
+	}
+
+	@Override
+	public String toString() {
+		return projekt_bezeichnung;
 	}
 	
 	

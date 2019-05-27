@@ -71,7 +71,11 @@ public class SampleController implements Initializable {
     @FXML
     private Button buttonProjekt_clear;
     @FXML
-    private Button button07;
+    private Button buttonTaetigkeit_add;
+    @FXML
+    private Button buttonTaetigkeit_delete;
+    @FXML
+    private Button buttonTaetigkeit_clear;
     @FXML
     private TextField textMitarbeiter_vn;
     @FXML
@@ -83,11 +87,11 @@ public class SampleController implements Initializable {
     @FXML
     private TextField textProjekt_bezeichnung;
     @FXML
-    private TextField textField06;
+    private TextArea textTaetigkeit;
     @FXML
-    private TextField textField07;
+    private TextField texttaetigkeit_dauer;
     @FXML
-    private TextField textField08;
+    private TextField taetigkeit_id;
     @FXML
     private TextField textField09;
     @FXML
@@ -109,7 +113,7 @@ public class SampleController implements Initializable {
     @FXML
     private TextField textField18;
     @FXML
-    private DatePicker datepicker01;
+    private DatePicker dateTaetigkeit;
     @FXML
     private TableView tableMitarbeiter;
     @FXML
@@ -135,28 +139,35 @@ public class SampleController implements Initializable {
 			choiceProjekt.getItems().add(p.toString());
 		 }
 		 
-    	TableColumn mitarbeiterVName = new TableColumn("MITARBEITERVORNAME");
-    	TableColumn mitarbeiterNName = new TableColumn("MITARBEITERNACHNAME");
-    	TableColumn taetigkeit = new TableColumn("TAETIGKEIT");
-    	TableColumn timestamp = new TableColumn("ZEITSTEMPEL");
+		TableColumn projektposition_id_column = new TableColumn("EINTRAG-ID");
+    	TableColumn mitarbeiter_id_column = new TableColumn("MITARBEITER-ID");
+    	TableColumn projekt_id_column = new TableColumn("PROJEKT-ID");
+    	TableColumn projektposition_bezeichnung_column = new TableColumn("TAETIGKEIT");
+    	TableColumn projektposition_datum_column = new TableColumn("DATUM");
+    	TableColumn projektposition_dauer_column = new TableColumn("DAUER");
     	
-    	tableProjektMitarbeiter.getColumns().addAll(mitarbeiterVName, mitarbeiterNName, taetigkeit, timestamp);
+    	tableProjektMitarbeiter.getColumns().addAll(projektposition_id_column, mitarbeiter_id_column, projekt_id_column, projektposition_bezeichnung_column, projektposition_datum_column, projektposition_dauer_column);
     	
-    	mitarbeiterVName.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.3));
-    	taetigkeit.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.3));
-    	timestamp.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.3));
+    	projektposition_id_column.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.2));
+    	mitarbeiter_id_column.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.2));
+    	projektposition_bezeichnung_column.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.2));
+    	projektposition_datum_column.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.2));
+    	projektposition_dauer_column.prefWidthProperty().bind(tableProjektMitarbeiter.widthProperty().multiply(0.2));
     	
     	ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
     	
     	
-    	mitarbeiterVName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Mitarbeitervorname"));
-    	mitarbeiterNName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Mitarbeitername"));
-    	taetigkeit.setCellValueFactory(new PropertyValueFactory<Invoice, String>("taetigkeit"));
-    	timestamp.setCellValueFactory(new PropertyValueFactory<Invoice, String>(""));
-    	timestamp.setCellValueFactory(new PropertyValueFactory<Invoice, String>(""));
+    	projektposition_id_column.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("id"));
+    	mitarbeiter_id_column.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("mitarbeiter_id"));
+    	projekt_id_column.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("projekt_id"));
+    	projektposition_bezeichnung_column.setCellValueFactory(new PropertyValueFactory<Invoice, String>("taetigkeit"));
+    	projektposition_datum_column.setCellValueFactory(new PropertyValueFactory<Invoice, String>("timestamp"));
+    	projektposition_dauer_column.setCellValueFactory(new PropertyValueFactory<Invoice, String>("dauer"));
     	
     	tableProjektMitarbeiter.setItems(obslist);
     	
+    	TableColumn mitarbeiterVName = new TableColumn("MITARBEITERVORNAME");
+    	TableColumn mitarbeiterNName = new TableColumn("MITARBEITERNACHNAME");
     	TableColumn mitarbeiter_id = new TableColumn("MITARBEITER_ID");
     	
     	tableMitarbeiter.getColumns().addAll(mitarbeiter_id, mitarbeiterVName, mitarbeiterNName);
@@ -164,6 +175,9 @@ public class SampleController implements Initializable {
     	mitarbeiterVName.setCellValueFactory(new PropertyValueFactory<Mitarbeiter, String>("Mitarbeiter_vn"));
     	mitarbeiterNName.setCellValueFactory(new PropertyValueFactory<Mitarbeiter, String>("Mitarbeiter_nn"));
     	mitarbeiter_id.setCellValueFactory(new PropertyValueFactory<Mitarbeiter, Integer>("mitarbeiter_id"));
+    	
+    	mitarbeiter_id.prefWidthProperty().bind(tableMitarbeiter.widthProperty().multiply(0.3));
+    	mitarbeiter_id.prefWidthProperty().bind(tableMitarbeiter.widthProperty().multiply(0.3));
     	mitarbeiter_id.prefWidthProperty().bind(tableMitarbeiter.widthProperty().multiply(0.3));
     	
     	ObservableList<Mitarbeiter> obslistMitarbeiter = FXCollections.observableArrayList(invDAO.getAllMitarbeiter());
@@ -257,26 +271,38 @@ public class SampleController implements Initializable {
 		 public void buttonAddTaetigkeit() {
 			
 			 
-		    	String mitarbeiter_vn = String.valueOf(textMitarbeiter_vn.getText());
-		        String mitarbeiter_nn = String.valueOf(textMitarbeiter_nn.getText());
-
-				 if(textMitarbeiter_id.getLength()==0) {
+		    	String taetigkeit_bezeichnung = String.valueOf(textTaetigkeit.getText());
+		        String taetigkeit_dauer = String.valueOf(texttaetigkeit_dauer.getText());
+		        Date d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
+		        int mitarbeiter_id = invDAO.getSpecificId(choiceMitarbeiter.getValue().toString());
+		        System.out.println(invDAO.getSpecificId(choiceMitarbeiter.getValue().toString()));
+		        System.out.println(mitarbeiter_id);
+		        int projekt_id = invDAO.getSpecificProjektId(choiceProjekt.getValue().toString());
+				System.out.println(projekt_id);
+		        if(taetigkeit_id.getLength()==0) {
 		           Alert alert = new Alert(AlertType.INFORMATION);
 		           alert.setTitle("Information");
 		           alert.setHeaderText("Bestätigung");
 		           String s ="Eintrag wurde erfolgreich gespeichert";
 		           alert.setContentText(s);
 		           alert.show();
-		   		invDAO.addMitarbeiter(mitarbeiter_vn, mitarbeiter_nn);	
+		           System.out.println(choiceMitarbeiter.getSelectionModel().getSelectedItem());
+		           
+				 
+				
+		   		invDAO.addInvoice(mitarbeiter_id, projekt_id, taetigkeit_bezeichnung, d, taetigkeit_dauer);	
 		       }else {
-		           int mitarbeiter_id = Integer.valueOf(textMitarbeiter_id.getText());
-		       	invDAO.updateMitarbeiter(mitarbeiter_id, mitarbeiter_vn, mitarbeiter_nn);
+		           int taetigkeit_id = Integer.valueOf(textMitarbeiter_id.getText());
+		       	invDAO.updateInvoice(taetigkeit_id, mitarbeiter_id, projekt_id, taetigkeit_bezeichnung, d, taetigkeit_dauer);
 		       }
 				 ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
-				 tableMitarbeiter.setItems(obslist);
-				 tableMitarbeiter.refresh();
+				 tableProjektMitarbeiter.setItems(obslist);
+				 tableProjektMitarbeiter.refresh();
 			}
 		 
+		 public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
+			    return java.sql.Date.valueOf(dateToConvert);
+			}
 		 
 }
 //    

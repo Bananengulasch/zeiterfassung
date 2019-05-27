@@ -7,7 +7,8 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 	Connection myConn = null;
 	Statement myStmt = null;
 	ResultSet myRs = null;
-	
+	int mitarbeiter_id;
+	int projekt_id;
 	
 	public static Connection connect() throws SQLException {
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/zeiterfassung", "root" , "");
@@ -70,7 +71,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "UPDATE `projektposition` SET `mitarbeiter_mitarbeiter_id`=?,`projekt_projekt_id`=?,`projektposition_taetigkeit`=?,`projektposition_dauer`=?,`projektposition_timestamp`=?,`projektposition_dauer`=? WHERE id=?";
+		String statement = "UPDATE `projektposition` SET `mitarbeiter_mitarbeiter_id`=?,`projekt_projekt_id`=?,`projektposition_taetigkeit`=?,`projektposition_dauer`=?,`projektposition_timestamp`=?,`projektposition_dauer`=? WHERE projektposition_id=?";
 		
 		try {
 			// 1. Get a connection to database
@@ -133,7 +134,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			
 			// 4. Process the result set
 			while (myRs.next()) {
-				Invoice invoice = new Invoice(myRs.getInt("id"),  myRs.getString("mitarbeiter_id"), myRs.getString("projekt_id"), myRs.getString("taetigkeit"), myRs.getDate("timestamp"), myRs.getString("dauer"));
+				Invoice invoice = new Invoice(myRs.getInt("projektposition_id"),  myRs.getInt("mitarbeiter_mitarbeiter_id"), myRs.getInt("projekt_projekt_id"), myRs.getString("projektposition_bezeichnung"), myRs.getDate("projektposition_datum"), myRs.getString("projektposition_dauer"));
 				projekte_mitarbeiter.add(invoice);
 			}
 		}
@@ -224,7 +225,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "UPDATE `mitarbeiter` SET `mitarbeiter_vn`=?,`mitarbeiter_nn`=? WHERE id=?";
+		String statement = "UPDATE `mitarbeiter` SET `mitarbeiter_vn`=?,`mitarbeiter_nn`=? WHERE mitarbeiter_id=?";
 		
 		try {
 			// 1. Get a connection to database
@@ -374,7 +375,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "UPDATE `projekt` SET `projekt_bezeichnung`=? WHERE id=?";
+		String statement = "UPDATE `projekt` SET `projekt_bezeichnung`=? WHERE projekt_id=?";
 		
 		try {
 			// 1. Get a connection to database
@@ -469,11 +470,11 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		return projektliste;
 	}
 	
-	public String getSepcificId(String mitarbeiter_nn){
+	public Integer getSpecificId(String mitarbeiter_nn){
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "SELECT mitarbeiter_id WHERE mitarbeiter_nn=?";
+		String statement = "SELECT mitarbeiter_id FROM mitarbeiter WHERE mitarbeiter_nn=?";
 		
 		try {
 			// 1. Get a connection to database
@@ -481,9 +482,16 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
+			myStmt.setString(1, mitarbeiter_nn);
 			myRs = myStmt.executeQuery();
 			
-			/// UNFINISHED // 
+			while(myRs.next()) {
+				 mitarbeiter_id = myRs.getInt("mitarbeiter_id");
+			}
+			
+			
+			
+			
 			
 		}
 		catch (Exception exc) {
@@ -519,4 +527,67 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			
 			
 		}
+		return mitarbeiter_id;
+}
+	
+	public Integer getSpecificProjektId(String projekt_bezeichnung){
+		PreparedStatement myStmt = null;
+		Connection myConn = null;
+		ResultSet myRs = null;
+		String statement = "SELECT projekt_id FROM projekt WHERE projekt_bezeichnung=?";
+		
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.prepareStatement(statement);
+			myStmt.setString(1, projekt_bezeichnung);
+			myRs = myStmt.executeQuery();
+			
+			while(myRs.next()) {
+				projekt_id = myRs.getInt("projekt_id");
+				
+			}
+			
+			
+			
+			
+			
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+		return projekt_id;
+}
 }

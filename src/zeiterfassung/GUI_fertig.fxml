@@ -48,25 +48,16 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView fx:id="tableProjektMitarbeiter" layoutX="36.0" layoutY="350.0" prefHeight="302.0" prefWidth="787.0">
-                  <columns>
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="157.0" text="ID" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="143.0" text="Mitarbeiter ID" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="133.0" text="Projekt ID" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="121.0" text="Tätigkeit" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="103.0" text="Datum" />
-                    <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="129.0" text="Dauer" />
-                  </columns>
-                </TableView>
+                <TableView fx:id="tableProjektMitarbeiter" layoutX="36.0" layoutY="350.0" prefHeight="302.0" prefWidth="787.0" />
                 <Separator layoutX="12.0" layoutY="329.0" prefWidth="847.0001220703125" />
                 <Label font="$x2" layoutX="322.0" layoutY="14.0" text="TÄTIGKEIT ANLEGEN" />
                 <Label font="$x1" layoutX="36.0" layoutY="101.0" text="Mitarbeitername:" />
                 <Label font="$x1" layoutX="36.0" layoutY="159.0" text="Projektname:" />
                 <Label font="$x1" layoutX="36.0" layoutY="216.0" text="Tätigkeit:" />
-                <TextArea layoutX="173.0" layoutY="216.0" prefHeight="102.0" prefWidth="207.0" promptText="Bitte Tätigkeit eingeben" wrapText="true" />
+                <TextArea fx:id="textTaetigkeit" layoutX="173.0" layoutY="216.0" prefHeight="102.0" prefWidth="207.0" promptText="Bitte Tätigkeit eingeben" wrapText="true" />
                 <Label font="$x1" layoutX="422.0" layoutY="101.0" text="Datum:" />
                 <Label font="$x1" layoutX="422.0" layoutY="159.0" text="Dauer:" />
-                <TextField layoutX="500.0" layoutY="152.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
+                <TextField fx:id="texttaetigkeit_dauer" layoutX="500.0" layoutY="152.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
                 <ChoiceBox fx:id="choiceMitarbeiter" layoutX="230.0" layoutY="102.0" prefHeight="31.0" prefWidth="145.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -85,11 +76,13 @@
                     </FXCollections>
                   </items>
                 </ChoiceBox>
-                <Button layoutX="598.0" layoutY="291.0" mnemonicParsing="false" text="TÄTIGKEIT ANZEIGEN" />
-                <Button layoutX="422.0" layoutY="291.0" mnemonicParsing="false" text="TÄTIGKEIT ANLEGEN" />
-                <Button layoutX="781.0" layoutY="291.0" mnemonicParsing="false" text="CLEAR" />
+                <Button fx:id="buttonTaetigkeit_delete" layoutX="598.0" layoutY="291.0" mnemonicParsing="false" text="TÄTIGKEIT LÖSCHEN" />
+                <Button fx:id="buttonTaetigkeit_add" layoutX="422.0" layoutY="291.0" mnemonicParsing="false" onAction="#buttonAddTaetigkeit" text="TÄTIGKEIT ANLEGEN" />
+                <Button fx:id="buttonTaetigkeit_clear" layoutX="781.0" layoutY="291.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="51.0" startX="-134.0" startY="-2.0" />
-                        <DatePicker layoutX="504.0" layoutY="101.0" />
+                        <DatePicker fx:id="dateTaetigkeit" layoutX="504.0" layoutY="101.0" />
+                        <TextField fx:id="taetigkeit_id" layoutX="500.0" layoutY="211.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
+                        <Label font="$x1" layoutX="422.0" layoutY="216.0" text="ID:" />
               </children>
             </AnchorPane>
           </content>

@@ -81,7 +81,7 @@
                 <Button fx:id="buttonTaetigkeit_clear" layoutX="781.0" layoutY="291.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="51.0" startX="-134.0" startY="-2.0" />
                         <DatePicker fx:id="dateTaetigkeit" layoutX="504.0" layoutY="101.0" />
-                        <TextField fx:id="taetigkeit_id" layoutX="500.0" layoutY="211.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
+                        <TextField fx:id="texttaetigkeit_id" layoutX="500.0" layoutY="211.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
                         <Label font="$x1" layoutX="422.0" layoutY="216.0" text="ID:" />
               </children>
             </AnchorPane>

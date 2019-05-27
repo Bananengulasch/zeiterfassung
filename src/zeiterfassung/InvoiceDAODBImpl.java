@@ -71,7 +71,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "UPDATE `projektposition` SET `mitarbeiter_mitarbeiter_id`=?,`projekt_projekt_id`=?,`projektposition_taetigkeit`=?,`projektposition_dauer`=?,`projektposition_timestamp`=?,`projektposition_dauer`=? WHERE projektposition_id=?";
+		String statement = "UPDATE `projektposition` SET `mitarbeiter_mitarbeiter_id`=?,`projekt_projekt_id`=?,`projektposition_bezeichnung`=?,`projektposition_datum`=?,`projektposition_dauer`=? WHERE projektposition_id=?";
 		
 		try {
 			// 1. Get a connection to database

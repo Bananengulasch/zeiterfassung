@@ -91,7 +91,7 @@ public class SampleController implements Initializable {
     @FXML
     private TextField texttaetigkeit_dauer;
     @FXML
-    private TextField taetigkeit_id;
+    private TextField texttaetigkeit_id;
     @FXML
     private TextField textField09;
     @FXML
@@ -127,7 +127,9 @@ public class SampleController implements Initializable {
     
     public void initialize(URL url, ResourceBundle rb) {
     	
-    	
+    			//////////////////////////
+    			/// TABELLE TÄETIGKEIT ///
+    			//////////////////////////
     	 choiceMitarbeiter.getItems().clear();
 		 for(Mitarbeiter m : invDAO.getAllMitarbeiter()) {
 			 choiceMitarbeiter.getItems().add(m.toString());
@@ -166,6 +168,10 @@ public class SampleController implements Initializable {
     	
     	tableProjektMitarbeiter.setItems(obslist);
     	
+    					//////////////////////////
+    					/// TABELLE Mitarbeiter ///
+    					//////////////////////////
+    	
     	TableColumn mitarbeiterVName = new TableColumn("MITARBEITERVORNAME");
     	TableColumn mitarbeiterNName = new TableColumn("MITARBEITERNACHNAME");
     	TableColumn mitarbeiter_id = new TableColumn("MITARBEITER_ID");
@@ -183,6 +189,10 @@ public class SampleController implements Initializable {
     	ObservableList<Mitarbeiter> obslistMitarbeiter = FXCollections.observableArrayList(invDAO.getAllMitarbeiter());
     	    	
     	tableMitarbeiter.setItems(obslistMitarbeiter);
+    	
+    			//////////////////////////
+				/// TABELLE Projekt ///
+				//////////////////////////
     	
     	TableColumn projekt_id = new TableColumn("PROJEKT_ID");
     	TableColumn projekt_bezeichnung = new TableColumn("PROJEKTBEZEICHNUNG");
@@ -216,8 +226,8 @@ public class SampleController implements Initializable {
            int mitarbeiter_id = Integer.valueOf(textMitarbeiter_id.getText());
        	invDAO.updateMitarbeiter(mitarbeiter_id, mitarbeiter_vn, mitarbeiter_nn);
        }
-		 ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
-		 tableMitarbeiter.setItems(obslist);
+		 ObservableList<Mitarbeiter> obslistMitarbeiter = FXCollections.observableArrayList(invDAO.getAllMitarbeiter());
+		 tableMitarbeiter.setItems(obslistMitarbeiter);
 		 tableMitarbeiter.refresh();
 	}
     
@@ -263,8 +273,8 @@ public class SampleController implements Initializable {
            int id = Integer.valueOf(textProjekt_id.getText());
        	invDAO.updateProjekt(id, projekt_bezeichnung);
        }
-		 ObservableList<Invoice> obslistKunde = FXCollections.observableArrayList(invDAO.getAllInvoices());
-		 tableProjekt.setItems(obslistKunde);
+		 ObservableList<Projekt> obslistProjekt = FXCollections.observableArrayList(invDAO.getAllProjekte());
+		 tableProjekt.setItems(obslistProjekt);
 		 tableProjekt.refresh();
 	}
 		
@@ -276,7 +286,7 @@ public class SampleController implements Initializable {
 		        Date d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
 		        int mitarbeiter_id = invDAO.getSpecificId(choiceMitarbeiter.getValue().toString());
 		        int projekt_id = invDAO.getSpecificProjektId(choiceProjekt.getValue().toString());
-		        if(taetigkeit_id.getLength()==0) {
+		        if(texttaetigkeit_id.getLength()==0) {
 		           Alert alert = new Alert(AlertType.INFORMATION);
 		           alert.setTitle("Information");
 		           alert.setHeaderText("Bestätigung");
@@ -288,7 +298,7 @@ public class SampleController implements Initializable {
 				
 		   		invDAO.addInvoice(mitarbeiter_id, projekt_id, taetigkeit_bezeichnung, d, taetigkeit_dauer);	
 		       }else {
-		           int taetigkeit_id = Integer.valueOf(textMitarbeiter_id.getText());
+		           int taetigkeit_id = Integer.valueOf(texttaetigkeit_id.getText());
 		       	invDAO.updateInvoice(taetigkeit_id, mitarbeiter_id, projekt_id, taetigkeit_bezeichnung, d, taetigkeit_dauer);
 		       }
 				 ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());

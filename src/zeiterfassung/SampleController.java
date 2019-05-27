@@ -275,10 +275,7 @@ public class SampleController implements Initializable {
 		        String taetigkeit_dauer = String.valueOf(texttaetigkeit_dauer.getText());
 		        Date d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
 		        int mitarbeiter_id = invDAO.getSpecificId(choiceMitarbeiter.getValue().toString());
-		        System.out.println(invDAO.getSpecificId(choiceMitarbeiter.getValue().toString()));
-		        System.out.println(mitarbeiter_id);
 		        int projekt_id = invDAO.getSpecificProjektId(choiceProjekt.getValue().toString());
-				System.out.println(projekt_id);
 		        if(taetigkeit_id.getLength()==0) {
 		           Alert alert = new Alert(AlertType.INFORMATION);
 		           alert.setTitle("Information");
@@ -286,7 +283,6 @@ public class SampleController implements Initializable {
 		           String s ="Eintrag wurde erfolgreich gespeichert";
 		           alert.setContentText(s);
 		           alert.show();
-		           System.out.println(choiceMitarbeiter.getSelectionModel().getSelectedItem());
 		           
 				 
 				

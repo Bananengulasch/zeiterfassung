@@ -130,16 +130,7 @@ public class SampleController implements Initializable {
     			//////////////////////////
     			/// TABELLE TÄETIGKEIT ///
     			//////////////////////////
-    	 choiceMitarbeiter.getItems().clear();
-		 for(Mitarbeiter m : invDAO.getAllMitarbeiter()) {
-			 choiceMitarbeiter.getItems().add(m.toString());
-		 }
     	
-		 choiceProjekt.getItems().clear();
-		 for(Projekt p : invDAO.getAllProjekte()) {
-			
-			choiceProjekt.getItems().add(p.toString());
-		 }
 		 
 		TableColumn projektposition_id_column = new TableColumn("EINTRAG-ID");
     	TableColumn mitarbeiter_id_column = new TableColumn("MITARBEITER-ID");
@@ -193,6 +184,7 @@ public class SampleController implements Initializable {
     			//////////////////////////
 				/// TABELLE Projekt ///
 				//////////////////////////
+    	updateCheckbox();
     	
     	TableColumn projekt_id = new TableColumn("PROJEKT_ID");
     	TableColumn projekt_bezeichnung = new TableColumn("PROJEKTBEZEICHNUNG");
@@ -229,6 +221,7 @@ public class SampleController implements Initializable {
 		 ObservableList<Mitarbeiter> obslistMitarbeiter = FXCollections.observableArrayList(invDAO.getAllMitarbeiter());
 		 tableMitarbeiter.setItems(obslistMitarbeiter);
 		 tableMitarbeiter.refresh();
+		 updateCheckbox();
 	}
     
     
@@ -276,6 +269,7 @@ public class SampleController implements Initializable {
 		 ObservableList<Projekt> obslistProjekt = FXCollections.observableArrayList(invDAO.getAllProjekte());
 		 tableProjekt.setItems(obslistProjekt);
 		 tableProjekt.refresh();
+		 updateCheckbox();
 	}
 		
 		 public void buttonAddTaetigkeit() {
@@ -309,6 +303,20 @@ public class SampleController implements Initializable {
 		 public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
 			    return java.sql.Date.valueOf(dateToConvert);
 			}
+		 
+		 private void updateCheckbox() {
+			 
+			 choiceMitarbeiter.getItems().clear();
+			 for(Mitarbeiter m : invDAO.getAllMitarbeiter()) {
+				 choiceMitarbeiter.getItems().add(m.toString());
+			 }
+	    	
+			 choiceProjekt.getItems().clear();
+			 for(Projekt p : invDAO.getAllProjekte()) {
+				
+				choiceProjekt.getItems().add(p.toString());
+			 }
+		 }
 		 
 }
 //    

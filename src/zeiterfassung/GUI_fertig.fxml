@@ -108,17 +108,30 @@
               <children>
                 <Label font="$x2" layoutX="354.0" layoutY="24.0" text="AUSWERTUNG" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="59.0" startX="-134.0" startY="-2.0" />
-                        <Button fx:id="buttonEvaluation" layoutX="252.0" layoutY="260.0" mnemonicParsing="false" text="Auswerztung" />
-                        <Button layoutX="486.0" layoutY="260.0" mnemonicParsing="false" text="Button" />
-                        <TextField fx:id="textAuswertung_id" layoutX="184.0" layoutY="208.0" />
-                        <Label layoutX="130.0" layoutY="97.0" text="Label" />
-                        <TableView fx:id="tableAuswertung" layoutX="184.0" layoutY="413.0" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
-                        <DatePicker fx:id="dateAuswertung" layoutX="455.0" layoutY="208.0" />
+                        <Button fx:id="buttonEvaluation" layoutX="274.0" layoutY="215.0" mnemonicParsing="false" text="AUSWERTUNG">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="473.0" layoutY="215.0" mnemonicParsing="false" text="CLEAR">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="textAuswertung_id" layoutX="416.0" layoutY="98.0" />
+                        <Label layoutX="265.0" layoutY="98.0" text="Mitarbeiter ID:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tableAuswertung" layoutX="76.0" layoutY="315.0" prefHeight="200.0" prefWidth="721.0" />
+                        <DatePicker fx:id="dateAuswertung" layoutX="416.0" layoutY="142.0" />
+                        <Label layoutX="327.0" layoutY="142.0" text="Datum:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutX="13.0" layoutY="89.0" prefHeight="434.0" prefWidth="848.0" />
               </children>
             </AnchorPane>
           </content>

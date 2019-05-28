@@ -370,7 +370,58 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		
 	}
 	
-
+	public Integer getSpecificMitarbeiterId(int mitarbeiter_mitarbeiter_id){
+		PreparedStatement myStmt = null;
+		Connection myConn = null;
+		ResultSet myRs = null;
+		String statement = "SELECT mitarbeiter_mitarbeiter_id FROM taetigkeiten WHERE mitarbeiter_mitarbeiter_id=?";		
+		try {
+			// 1. Get a connection to database
+			myConn = connect();
+			
+			// 2. Create a statement
+			myStmt = myConn.prepareStatement(statement);
+			myStmt.setInt(1, mitarbeiter_mitarbeiter_id);
+			myRs = myStmt.executeQuery();
+			
+			while(myRs.next()) {
+				mitarbeiter_mitarbeiter_id = myRs.getInt("mitarbeiter_mitarbeiter_id");
+			}
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			if (myRs != null) {
+				try {
+					myRs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myStmt != null) {
+				try {
+					myStmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (myConn != null) {
+				try {
+					myConn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+		}
+		return mitarbeiter_mitarbeiter_id;
+}
+	
 	public void updateProjekt(int projekt_id, String projekt_bezeichnung) {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;

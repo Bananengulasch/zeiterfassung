@@ -125,7 +125,6 @@ public class SampleController implements Initializable {
     @FXML
     private ChoiceBox choiceProjekt;
     
-    private Date d;
     public void initialize(URL url, ResourceBundle rb) {
     	
     			//////////////////////////
@@ -306,7 +305,7 @@ public class SampleController implements Initializable {
 			 
 		    	String taetigkeit_bezeichnung = String.valueOf(textTaetigkeit.getText());
 		        String taetigkeit_dauer = String.valueOf(texttaetigkeit_dauer.getText());
-		        d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
+		        Date d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
 		        int mitarbeiter_id = invDAO.getSpecificId(choiceMitarbeiter.getValue().toString());
 		        int projekt_id = invDAO.getSpecificProjektId(choiceProjekt.getValue().toString());
 		        if(texttaetigkeit_id.getLength()==0) {

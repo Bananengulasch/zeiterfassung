@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.*?>
-<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.000022070315" prefWidth="875.0000999999975" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="zeiterfassung.SampleController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.000022070315" prefWidth="875.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="zeiterfassung.SampleController">
   <children>
     <TabPane layoutX="0.0" layoutY="0.0" prefHeight="708.0" prefWidth="872.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -33,13 +33,9 @@
                 <Button fx:id="buttonMitarbeiter_add" layoutX="344.0" layoutY="296.0" mnemonicParsing="false" onAction="#buttonAddMitarbeiter" text="MITARBEITER ANLEGEN" />
                 <Button layoutX="344.0" layoutY="335.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="50.0" startX="-134.0" startY="-2.0" />
-                        <TextField fx:id="textMitarbeiter_id" layoutX="354.0" layoutY="82.0" prefHeight="41.0" prefWidth="170.0" promptText="Bitte Vorname eingeben" />
-                        <Label layoutX="424.0" layoutY="49.0" text="ID:">
-                           <font>
-                              <Font size="20.0" fx:id="x11" />
-                           </font>
-                        </Label>
-                        <Button fx:id="buttonMitarbeiter_add" layoutX="436.0" layoutY="335.0" mnemonicParsing="false" onAction="#buttonMitarbeiterDelete" text="LÖSCHEN" />
+                <TextField fx:id="textMitarbeiter_id" layoutX="354.0" layoutY="82.0" prefHeight="41.0" prefWidth="170.0" promptText="ID wird automatisch eingetragen" />
+                <Label font="$x1" layoutX="424.0" layoutY="49.0" text="ID:" />
+                <Button fx:id="buttonMitarbeiter_add" layoutX="436.0" layoutY="335.0" mnemonicParsing="false" onAction="#buttonMitarbeiterDelete" text="LÖSCHEN" />
               </children>
             </AnchorPane>
           </content>
@@ -80,9 +76,9 @@
                 <Button fx:id="buttonTaetigkeit_add" layoutX="422.0" layoutY="291.0" mnemonicParsing="false" onAction="#buttonAddTaetigkeit" text="TÄTIGKEIT ANLEGEN" />
                 <Button fx:id="buttonTaetigkeit_clear" layoutX="781.0" layoutY="291.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="51.0" startX="-134.0" startY="-2.0" />
-                        <DatePicker fx:id="dateTaetigkeit" layoutX="504.0" layoutY="101.0" />
-                        <TextField fx:id="texttaetigkeit_id" layoutX="500.0" layoutY="211.0" prefHeight="41.0" prefWidth="226.0" promptText="Bitte Dauer (von - bis) eingeben" />
-                        <Label font="$x1" layoutX="422.0" layoutY="216.0" text="ID:" />
+                <DatePicker fx:id="dateTaetigkeit" layoutX="504.0" layoutY="101.0" />
+                <TextField fx:id="texttaetigkeit_id" layoutX="500.0" layoutY="211.0" prefHeight="41.0" prefWidth="226.0" promptText="ID wird automatisch eingetragen" />
+                <Label font="$x1" layoutX="422.0" layoutY="216.0" text="ID:" />
               </children>
             </AnchorPane>
           </content>
@@ -95,13 +91,23 @@
                 <TableView fx:id="tableProjekt" layoutX="167.0" layoutY="383.0" prefHeight="270.0" prefWidth="540.0" />
                 <Separator layoutX="10.0" layoutY="364.0" prefHeight="0.0" prefWidth="848.0" />
                 <Label font="$x1" layoutX="345.0" layoutY="156.0" text="Projekt Bezeichnung:" />
-                <TextField fx:id="textProjekt_bezeichnung" layoutX="295.0" layoutY="194.0" prefHeight="41.0" prefWidth="279.0" promptText="Bitte Bezcihnung des Projektes eingeben" />
+                <TextField fx:id="textProjekt_bezeichnung" layoutX="295.0" layoutY="194.0" prefHeight="41.0" prefWidth="279.0" promptText="Bitte Bezeichnung des Projektes eingeben" />
                 <Button fx:id="buttonProjekt_add" layoutX="360.0" layoutY="248.0" mnemonicParsing="false" onAction="#buttonAddProjekt" text="PROJEKT ANLEGEN" />
                 <Button fx:id="buttonProjekt_clear" layoutX="402.0" layoutY="327.0" mnemonicParsing="false" text="CLEAR" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="50.0" startX="-134.0" startY="-2.0" />
-                        <Button fx:id="buttonProjekt_delete" layoutX="360.0" layoutY="289.0" mnemonicParsing="false" text="PROJEKT LÖSCHEN" />
-                        <TextField fx:id="textProjekt_id" layoutX="298.0" layoutY="107.0" prefHeight="41.0" prefWidth="279.0" promptText="Bitte Bezcihnung des Projektes eingeben" />
-                        <Label font="$x1" layoutX="390.0" layoutY="67.0" text="Projekt ID" />
+                <Button fx:id="buttonProjekt_delete" layoutX="360.0" layoutY="289.0" mnemonicParsing="false" text="PROJEKT LÖSCHEN" />
+                <TextField fx:id="textProjekt_id" layoutX="298.0" layoutY="107.0" prefHeight="41.0" prefWidth="279.0" promptText="ID wird automatisch eingetragen" />
+                <Label font="$x1" layoutX="390.0" layoutY="67.0" text="Projekt ID" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Auswertung">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label font="$x2" layoutX="354.0" layoutY="24.0" text="AUSWERTUNG" />
+                <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="59.0" startX="-134.0" startY="-2.0" />
               </children>
             </AnchorPane>
           </content>

@@ -19,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SampleController implements Initializable {
 	InvoiceDAO invDAO = new InvoiceDAODBImpl();
-
+	
 	@FXML
     private Label label1;
     @FXML
@@ -125,6 +125,7 @@ public class SampleController implements Initializable {
     @FXML
     private ChoiceBox choiceProjekt;
     
+    private Date d;
     public void initialize(URL url, ResourceBundle rb) {
     	
     			//////////////////////////
@@ -277,7 +278,35 @@ public class SampleController implements Initializable {
 			 
 		    	String taetigkeit_bezeichnung = String.valueOf(textTaetigkeit.getText());
 		        String taetigkeit_dauer = String.valueOf(texttaetigkeit_dauer.getText());
-		        Date d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
+		        d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
+		        int mitarbeiter_id = invDAO.getSpecificId(choiceMitarbeiter.getValue().toString());
+		        int projekt_id = invDAO.getSpecificProjektId(choiceProjekt.getValue().toString());
+		        if(texttaetigkeit_id.getLength()==0) {
+		           Alert alert = new Alert(AlertType.INFORMATION);
+		           alert.setTitle("Information");
+		           alert.setHeaderText("Bestätigung");
+		           String s ="Eintrag wurde erfolgreich gespeichert";
+		           alert.setContentText(s);
+		           alert.show();
+		           
+				 
+				
+		   		invDAO.addInvoice(mitarbeiter_id, projekt_id, taetigkeit_bezeichnung, d, taetigkeit_dauer);	
+		       }else {
+		           int taetigkeit_id = Integer.valueOf(texttaetigkeit_id.getText());
+		       	invDAO.updateInvoice(taetigkeit_id, mitarbeiter_id, projekt_id, taetigkeit_bezeichnung, d, taetigkeit_dauer);
+		       }
+				 ObservableList<Invoice> obslist = FXCollections.observableArrayList(invDAO.getAllInvoices());
+				 tableProjektMitarbeiter.setItems(obslist);
+				 tableProjektMitarbeiter.refresh();
+			}
+		 	
+		 public void buttonEvaluation() {
+				
+			 
+		    	String taetigkeit_bezeichnung = String.valueOf(textTaetigkeit.getText());
+		        String taetigkeit_dauer = String.valueOf(texttaetigkeit_dauer.getText());
+		        d = convertToDateViaSqlDate(dateTaetigkeit.getValue());
 		        int mitarbeiter_id = invDAO.getSpecificId(choiceMitarbeiter.getValue().toString());
 		        int projekt_id = invDAO.getSpecificProjektId(choiceProjekt.getValue().toString());
 		        if(texttaetigkeit_id.getLength()==0) {
@@ -319,6 +348,8 @@ public class SampleController implements Initializable {
 		 }
 		 
 }
+
+
 //    
 //    public void buttonClearKunde() {
 //    	

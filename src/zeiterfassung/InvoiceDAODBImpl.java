@@ -370,22 +370,25 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		
 	}
 	
-	public Integer getSpecificMitarbeiterId(int mitarbeiter_mitarbeiter_id){
+	public List<Invoice> getSpecificMitarbeiterId(int mitarbeiter_mitarbeiter_id, Date mitarbeiter_date){
+		ArrayList<Invoice> mitarbeiter_specific = new ArrayList<>();
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "SELECT mitarbeiter_mitarbeiter_id FROM taetigkeiten WHERE mitarbeiter_mitarbeiter_id=?";		
+		String statement = "SELECT * FROM projektposition WHERE Month(?) = Month(getdate()) AND mitarbeiter_mitarbeiter_id=?";		
 		try {
 			// 1. Get a connection to database
 			myConn = connect();
 			
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
-			myStmt.setInt(1, mitarbeiter_mitarbeiter_id);
+			myStmt.setDate(1, mitarbeiter_date);
+			myStmt.setInt(2, mitarbeiter_mitarbeiter_id);
 			myRs = myStmt.executeQuery();
 			
 			while(myRs.next()) {
-				mitarbeiter_mitarbeiter_id = myRs.getInt("mitarbeiter_mitarbeiter_id");
+				Invoice invoice = new Invoice(myRs.getInt("projektposition_id"),  myRs.getInt("mitarbeiter_mitarbeiter_id"), myRs.getInt("projekt_projekt_id"), myRs.getString("projektposition_bezeichnung"), myRs.getDate("projektposition_datum"), myRs.getString("projektposition_dauer"));
+				mitarbeiter_specific.add(invoice);
 			}
 		}
 		catch (Exception exc) {
@@ -419,7 +422,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 				}
 			}			
 		}
-		return mitarbeiter_mitarbeiter_id;
+		return mitarbeiter_specific;
 }
 	
 	public void updateProjekt(int projekt_id, String projekt_bezeichnung) {

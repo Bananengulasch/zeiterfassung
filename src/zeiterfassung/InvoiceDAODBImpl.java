@@ -588,7 +588,7 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "SELECT SUM(projektposition_dauer) AS 'Summe' FROM projektposition WHERE mitarbeiter_mitarbeiter_id = ?";
+		String statement = "SELECT SUM(projektposition_dauer) AS 'Summe' FROM projektposition WHERE mitarbeiter_mitarbeiter_id = ?  AND MONTH(CURRENT_DATE()) = MONTH(projektposition_datum)";
 		
 		try {
 			// 1. Get a connection to database

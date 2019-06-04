@@ -593,7 +593,6 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		try {
 			// 1. Get a connection to database
 			myConn = connect();
-			
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
 			myStmt.setInt(1, mitarbeiter_id);

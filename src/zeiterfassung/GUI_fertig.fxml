@@ -108,16 +108,11 @@
               <children>
                 <Label font="$x2" layoutX="354.0" layoutY="24.0" text="AUSWERTUNG" />
                 <Line endX="134.0" endY="-2.0" layoutX="436.0" layoutY="59.0" startX="-134.0" startY="-2.0" />
-                        <Button fx:id="buttonEvaluation" layoutX="252.0" layoutY="260.0" mnemonicParsing="false" text="Auswerztung" />
+                        <Button fx:id="buttonEvaluation" layoutX="252.0" layoutY="260.0" mnemonicParsing="false" onAction="#buttonEvaluation" text="Auswerztung" />
                         <Button layoutX="486.0" layoutY="260.0" mnemonicParsing="false" text="Button" />
                         <TextField fx:id="textAuswertung_id" layoutX="184.0" layoutY="208.0" />
                         <Label layoutX="130.0" layoutY="97.0" text="Label" />
-                        <TableView fx:id="tableAuswertung" layoutX="184.0" layoutY="413.0" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
+                        <TableView fx:id="tableAuswertung" layoutX="184.0" layoutY="413.0" prefHeight="200.0" prefWidth="200.0" />
                         <DatePicker fx:id="dateAuswertung" layoutX="455.0" layoutY="208.0" />
               </children>
             </AnchorPane>

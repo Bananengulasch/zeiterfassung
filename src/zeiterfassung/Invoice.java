@@ -72,8 +72,14 @@ public class Invoice {
 	public void setDauer(String dauer) {
 		this.dauer = dauer;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Invoice [id=" + id + ", mitarbeiter_id=" + mitarbeiter_id + ", projekt_id=" + projekt_id
+				+ ", taetigkeit=" + taetigkeit + ", timestamp=" + timestamp + ", dauer=" + dauer + "]";
+	}
+	
+	
 	
 	
 	

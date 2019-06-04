@@ -112,6 +112,8 @@ public class SampleController implements Initializable {
     private ChoiceBox choiceMitarbeiter;
     @FXML
     private ChoiceBox choiceProjekt;
+    @FXML
+    private ChoiceBox choiceMitarbeiterAuswertung;
     
     public void initialize(URL url, ResourceBundle rb) {
     	
@@ -354,6 +356,11 @@ public class SampleController implements Initializable {
 			 for(Projekt p : invDAO.getAllProjekte()) {
 				
 				choiceProjekt.getItems().add(p.toString());
+			 }
+			 
+			 choiceMitarbeiterAuswertung.getItems().clear();
+			 for(Mitarbeiter m : invDAO.getAllMitarbeiter()) {
+				 choiceMitarbeiter.getItems().add(m.toString());
 			 }
 		 }
 		 

@@ -9,6 +9,7 @@ public interface InvoiceDAO {
 	public List<Mitarbeiter> getAllMitarbeiter();
 	public List<Projekt> getAllProjekte();
 	public Integer getSpecificId(String mitarbeiter_nn);
+	public Integer getMitarbeiterHours(int mitarbeiter_id);
 	public Integer getSpecificProjektId(String projekt_bezeichnung);
 	public List<Invoice> getSpecificMitarbeiterId(int mitarbeiter_mitarbeiter_id);
 	public void addInvoice(int mitarbeiter_mitarbeiter_id, int projekt_projekt_id, String projektposition_bezeichnung, Date projektposition_datum, String projektposition_dauer);

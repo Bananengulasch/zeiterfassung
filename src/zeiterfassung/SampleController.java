@@ -97,23 +97,7 @@ public class SampleController implements Initializable {
     @FXML
     private TextField textAuswertung_id;
     @FXML
-    private TextField textField10;
-    @FXML
-    private TextField textField11;
-    @FXML
-    private TextField textField12;
-    @FXML
-    private TextField textField13;
-    @FXML
-    private TextField textField14;
-    @FXML
-    private TextField textField15;
-    @FXML
-    private TextField textField16;
-    @FXML
-    private TextField textField17;
-    @FXML
-    private TextField textField18;
+    private TextField StundenMitarbeiter;
     @FXML
     private DatePicker dateTaetigkeit;
     @FXML
@@ -328,7 +312,8 @@ public class SampleController implements Initializable {
 				
 			 
 		    	int mitarbeiter_id_ev = Integer.valueOf(textAuswertung_id.getText());
-		     
+		    	int mitarbeiter_hours = invDAO.getMitarbeiterHours(mitarbeiter_id_ev);
+		    	StundenMitarbeiter.setText(Integer.toString(mitarbeiter_hours));
 		        if(texttaetigkeit_id.getLength()==0) {
 		           Alert alert = new Alert(AlertType.INFORMATION);
 		           alert.setTitle("Information");

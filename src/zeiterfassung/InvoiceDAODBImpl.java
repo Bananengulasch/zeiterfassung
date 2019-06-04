@@ -383,13 +383,11 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
 			myStmt.setInt(1, mitarbeiter_mitarbeiter_id);
-			System.out.println(myStmt);
 			myRs = myStmt.executeQuery();
 			
 			while(myRs.next()) {
 				Invoice invoice = new Invoice(myRs.getInt("projektposition_id"),  myRs.getInt("mitarbeiter_mitarbeiter_id"), myRs.getInt("projekt_projekt_id"), myRs.getString("projektposition_bezeichnung"), myRs.getDate("projektposition_datum"), myRs.getString("projektposition_dauer"));
 				mitarbeiter_specific.add(invoice);
-				System.out.println(invoice.toString());
 			}
 		}
 		catch (Exception exc) {

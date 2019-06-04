@@ -233,14 +233,11 @@ public class SampleController implements Initializable {
 	}
     
     
+    public void buttonClearMitarbeiter() {
     	
-    		
-    	
-    
-    public void buttonClear() {
-    	
-    	
-
+	textMitarbeiter_vn.setText("");
+	textMitarbeiter_nn.setText("");
+	textMitarbeiter_id.setText("");
     }
     
     public void buttonMitarbeiterDelete() {
@@ -280,6 +277,12 @@ public class SampleController implements Initializable {
 		 updateCheckbox();
 	}
 		
+	    public void buttonClearProjekt() {
+	    	
+	    	textProjekt_id.setText("");
+	    	textProjekt_bezeichnung.setText("");
+	        }
+		
 		 public void buttonAddTaetigkeit() {
 			
 			 
@@ -307,6 +310,14 @@ public class SampleController implements Initializable {
 				 tableProjektMitarbeiter.setItems(obslist);
 				 tableProjektMitarbeiter.refresh();
 			}
+		 
+		    public void buttonClearTaetigkeit() {
+		    	textTaetigkeit.setText("");
+		    	texttaetigkeit_id.setText("");
+		    	texttaetigkeit_dauer.setText("");
+		    	choiceMitarbeiter.setValue(null);
+		    	choiceProjekt.setValue(null);
+		        }
 		 	
 		 public void buttonEvaluation() {
 				

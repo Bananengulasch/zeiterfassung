@@ -3,6 +3,7 @@ package zeiterfassung;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -114,6 +115,8 @@ public class SampleController implements Initializable {
     private ChoiceBox choiceProjekt;
     @FXML
     private ChoiceBox choiceMitarbeiterAuswertung;
+    @FXML
+    private ChoiceBox choiceMonth;
     
     public void initialize(URL url, ResourceBundle rb) {
     	
@@ -322,30 +325,64 @@ public class SampleController implements Initializable {
 		        }
 		 	
 		 public void buttonEvaluation() {
-				
+
 			 
-		    	int mitarbeiter_id_ev = Integer.valueOf(textAuswertung_id.getText());
+		    	int mitarbeiter_id_ev = invDAO.getSpecificId(choiceMitarbeiterAuswertung.getValue().toString());
 		    	int mitarbeiter_hours = invDAO.getMitarbeiterHours(mitarbeiter_id_ev);
 		    	StundenMitarbeiter.setText(Integer.toString(mitarbeiter_hours));
-		        if(texttaetigkeit_id.getLength()==0) {
-		           Alert alert = new Alert(AlertType.INFORMATION);
-		           alert.setTitle("Information");
-		           alert.setHeaderText("Bestätigung");
-		           String s ="Auswertung erfolgreich";
-		           alert.setContentText(s);
-		           alert.show();
-		         
-				 ObservableList<Invoice> obslistAuswertung = FXCollections.observableArrayList(invDAO.getSpecificMitarbeiterId(mitarbeiter_id_ev));
+		    	String month = choiceMonth.getValue().toString();
+		    	int intmonth = getMonth(month);
+		        
+				 ObservableList<Invoice> obslistAuswertung = FXCollections.observableArrayList(invDAO.getSpecificMitarbeiterId(mitarbeiter_id_ev, intmonth));
+				 if(texttaetigkeit_id.getLength()==0 && !obslistAuswertung.isEmpty()) {
+			           Alert alert = new Alert(AlertType.INFORMATION);
+			           alert.setTitle("Information");
+			           alert.setHeaderText("Bestätigung");
+			           String s ="Auswertung erfolgreich";
+			           alert.setContentText(s);
+			           alert.show();
+				 }
+			           else{ if(obslistAuswertung.isEmpty()) {
+					 Alert warning = new Alert(AlertType.WARNING);
+			           warning.setTitle("WARNUNG");
+			           warning.setHeaderText("WARNUNG");
+			           String w ="Keine Daten vorhanden!";
+			           warning.setContentText(w);
+			           warning.show();
+				 }
+			           }
 				 tableAuswertung.setItems(obslistAuswertung);
 				 tableAuswertung.refresh();
-			}
+			
 		 }
 		 
 		 public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
 			    return java.sql.Date.valueOf(dateToConvert);
 			}
 		 
+		 private Integer getMonth(String month) {
+			 
+			 switch (month) {
+	            case "January" :  month = "1";       break;
+	            case "February":  month = "2";      break;
+	            case "March":  month = "3";         break;
+	            case "April":  month = "4";         break;
+	            case "May":  month = "5";           break;
+	            case "June":  month = "6";          break;
+	            case "July":  month = "7";          break;
+	            case "August":  month = "8";        break;
+	            case "September":  month = "9";     break;
+	            case "October": month = "10";       break;
+	            case "November": month = "11";      break;
+	            case  "December": month = "12";      break;
+	            default: month = "Invalid month"; break;
+	        }
+	        return Integer.valueOf(month);
+		 }
+		 
 		 private void updateCheckbox() {
+			 choiceMonth.getItems().clear();
+			 choiceMonth.getItems().addAll("January", "February", "March", "April", "May","June","July","August","September","October","November","December");
 			 
 			 choiceMitarbeiter.getItems().clear();
 			 for(Mitarbeiter m : invDAO.getAllMitarbeiter()) {
@@ -360,7 +397,7 @@ public class SampleController implements Initializable {
 			 
 			 choiceMitarbeiterAuswertung.getItems().clear();
 			 for(Mitarbeiter m : invDAO.getAllMitarbeiter()) {
-				 choiceMitarbeiter.getItems().add(m.toString());
+				 choiceMitarbeiterAuswertung.getItems().add(m.toString());
 			 }
 		 }
 		 

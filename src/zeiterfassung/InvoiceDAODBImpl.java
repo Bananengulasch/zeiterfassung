@@ -370,19 +370,21 @@ public class InvoiceDAODBImpl implements InvoiceDAO {
 		
 	}
 	
-	public List<Invoice> getSpecificMitarbeiterId(int mitarbeiter_mitarbeiter_id){
+	public List<Invoice> getSpecificMitarbeiterId(int mitarbeiter_mitarbeiter_id, int mitarbeiter_date){
 		ArrayList<Invoice> mitarbeiter_specific = new ArrayList<>();
 		PreparedStatement myStmt = null;
 		Connection myConn = null;
 		ResultSet myRs = null;
-		String statement = "SELECT * FROM projektposition WHERE MONTH(projektposition.projektposition_datum) = Month(CURRENT_DATE()) AND mitarbeiter_mitarbeiter_id=?";		
+		String statement = "SELECT * FROM projektposition WHERE MONTH(projektposition.projektposition_datum) = ? AND mitarbeiter_mitarbeiter_id=?";		
 		try {
 			// 1. Get a connection to database
 			myConn = connect();
 			
 			// 2. Create a statement
 			myStmt = myConn.prepareStatement(statement);
-			myStmt.setInt(1, mitarbeiter_mitarbeiter_id);
+			myStmt.setInt(1, mitarbeiter_date);
+			myStmt.setInt(2, mitarbeiter_mitarbeiter_id);
+			
 			myRs = myStmt.executeQuery();
 			
 			while(myRs.next()) {

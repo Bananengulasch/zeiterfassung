@@ -349,6 +349,7 @@ public class SampleController implements Initializable {
 			           String w ="Keine Daten vorhanden!";
 			           warning.setContentText(w);
 			           warning.show();
+			           StundenMitarbeiter.setText("");
 				 }
 			           }
 				 tableAuswertung.setItems(obslistAuswertung);
